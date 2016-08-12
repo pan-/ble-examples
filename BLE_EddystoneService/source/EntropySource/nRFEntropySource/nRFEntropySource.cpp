@@ -15,7 +15,7 @@
  */
 #include "../EntropySource.h"
 
-#ifdef TARGET_NRF51822 /* Persistent storage supported on nrf51 platforms */
+#if defined(TARGET_NRF51822) || defined(TARGET_MCU_NRF52832) /* Persistent storage supported on nrf51 platforms */
 
 #include "nrf_soc.h"
 #include "nrf_error.h"
