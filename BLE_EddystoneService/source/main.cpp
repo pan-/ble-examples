@@ -16,7 +16,7 @@
 
 #ifdef YOTTA_CFG_MBED_OS  // use minar on mbed OS
 #   include "mbed-drivers/mbed.h"
-#else 
+#else
 #   include "mbed.h"
 #endif
 
@@ -250,13 +250,19 @@ void app_start(int, char *[])
 
 #if !defined(YOTTA_CFG_MBED_OS)
 
+void scheduleBleEventsProcessing(BLE::OnEventsToProcessCallbackContext* context) {
+    eventQueue.post(&BLE::processEvents, &context->ble);
+}
+
 int main() {
+
+    BLE &ble = BLE::Instance();
+    ble.onEventsToProcess(scheduleBleEventsProcessing);
 
     app_start(0, NULL);
 
     while (true) {
        eventQueue.dispatch();
-       BLE::Instance().waitForEvent();
     }
 
     return 0;
