@@ -268,4 +268,33 @@ int main() {
     return 0;
 }
 
+
+// *WARNING* HACK
+// avoid unecessary code to be pulled in,
+// should be fixed by mbed-os latter
+extern "C" {
+void exit(int) {
+    while(true) {
+    }
+}
+
+int __aeabi_atexit(void *object, void (*dtor)(void* /*this*/), void *handle) {
+    return 0;
+}
+
+int __cxa_atexit(void (*dtor)(void* this), void *object, void *handle) {
+    return 0;
+}
+
+void __register_exitproc() {
+}
+
+void __call_exitprocs(int, void *f) {
+}
+
+void __cxa_finalize(void *handle) {
+}
+
+}
+
 #endif
