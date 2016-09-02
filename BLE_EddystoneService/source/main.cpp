@@ -273,16 +273,19 @@ int main() {
 // avoid unecessary code to be pulled in,
 // should be fixed by mbed-os latter
 extern "C" {
+
+#if defined(TOOLCHAIN_GCC_ARM) || defined(TOOLCHAIN_GCC_CR)
 void exit(int) {
     while(true) {
     }
 }
+#endif
 
 int __aeabi_atexit(void *object, void (*dtor)(void* /*this*/), void *handle) {
     return 0;
 }
 
-int __cxa_atexit(void (*dtor)(void* this), void *object, void *handle) {
+int __cxa_atexit(void (*dtor)(void* /*this*/), void *object, void *handle) {
     return 0;
 }
 
